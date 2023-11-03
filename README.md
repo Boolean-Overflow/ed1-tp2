@@ -1,9 +1,9 @@
 # Project for Data Structure 1
 
 ## Group members
- - [Matateu Silvestre Andre](https://github.com/matateuandre)
- - [Lukeny Silva](https://github.com/lukestarwalk)
- - [Kélsio Mateus](https://github.com/iKelsio)
+ - [Matateu Silvestre Andre - 20212549](https://github.com/matateuandre)
+ - [Lukeny Silva - 20220718](https://github.com/lukestarwalk)
+ - [Kélsio Mateus - 20221473](https://github.com/iKelsio)
 
 # Git Basics
 

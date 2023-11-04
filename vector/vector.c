@@ -5,16 +5,39 @@
 #include "vector.h"
 
 struct point {
-  position x;
-  position y;
-  position z;
+  position x, y, z;
 };
 
 struct vector {
-  point start;
-  point end;
-  point coords;
+  point start, end, coords;
 };
+
+vector* vector_create_by_points(point start, point end) {
+  vector* v = malloc(sizeof(vector));
+  if (!v) {}
+  v->coords.x = end.x - start.x;
+  v->coords.y = end.y - start.y;
+  v->coords.z = end.z - start.z;
+  v->start = start;
+  v->end = end;
+
+  return v;
+}
+
+vector* vector_create_by_origin(point end) {
+  point p;
+  p.x = p.y = p.z = 0;
+  return vector_create_by_points(p, end);
+}
+
+point read_point() {
+  point p;
+  printf("X:"), scanf("%f", &p.x);
+  printf("Y:"), scanf("%f", &p.y);
+  printf("Z:"), scanf("%f", &p.z);
+
+  return p;
+}
 
 vector* product_by_scalar(vector* v, float ß) {
   if (!v) {
@@ -50,14 +73,14 @@ float vector_module(vector* v) {
   return sqrt(x * x + y * y + z * z);
 }
 
-string relative_position(vector* v1, vector* v2) {
-  float scalarProduct = scalar_product(v1, v2);
+// string relative_position(vector* v1, vector* v2) {
+//   float scalarProduct = scalar_product(v1, v2);
 
-  if (scalarProduct == 0) return "ortogonais";
-  else if (scalarProduct == -1) return "colineares";
-  else if (cos(vectors_angle(v1, v2)) == 1) return "paralelos";
-  else return "coincidentes";
-}
+//   if (scalarProduct == 0) return "ortogonais";
+//   else if (scalarProduct == -1) return "colineares";
+//   else if (cos(vectors_angle(v1, v2)) == 1) return "paralelos";
+//   else return "coincidentes";
+// }
 
 void vector_delete(vector* v) {
   if (!v) printf("\nVetor inexistente!\n");
@@ -70,11 +93,11 @@ float distance(vector* v1, vector* v2) {
   return d;
 }
 
-float mix_product(vector* v1, vector* v2, vector* v3) {
-  float result = 0;
-  result = scalar_product(v3, vectorial_product(v1, v2));
-  return result;
-}
+// float mix_product(vector* v1, vector* v2, vector* v3) {
+//   float result = 0;
+//   result = scalar_product(v3, vectorial_product(v1, v2));
+//   return result;
+// }
 
 point interception(vector* v1, vector* v2) {
 

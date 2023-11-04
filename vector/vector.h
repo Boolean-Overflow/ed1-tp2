@@ -1,5 +1,6 @@
 typedef struct vector vector;
 typedef struct point point;
+typedef char* string;
 typedef float position;
 
 // Matateu
@@ -19,5 +20,5 @@ point interception(vector* v1, vector* v2);
 vector* product_by_scalar(vector* v, float ß);
 float scalar_product(vector* v1, vector* v2);
 float vector_module(vector* v);
-char* relative_position(vector* v1, vector* v2); // Paralell or ortogonal
+string relative_position(vector* v1, vector* v2);
 void vector_delete(vector* v);

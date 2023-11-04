@@ -4,7 +4,8 @@ typedef char* string;
 typedef float position;
 
 // Matateu
-vector* vector_create(point start, point end);
+vector* vector_create_by_points(point start, point end);
+vector* vector_create_by_origin(point end);
 vector* sum_vectors(vector* v1, vector* v2);
 vector* vectorial_product(vector* v1, vector* v2);
 float vectors_angle(vector* v1, vector* v2);

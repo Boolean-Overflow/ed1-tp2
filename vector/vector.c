@@ -51,12 +51,11 @@ float vector_module(vector* v) {
 }
 
 string relative_position(vector* v1, vector* v2) {
-  float angle = vectors_angle(v1, v2);
   float scalarProduct = scalar_product(v1, v2);
 
   if (scalarProduct == 0) return "ortogonais";
   else if (scalarProduct == -1) return "colineares";
-  else if (cos(angle) == 1) return "paralelos";
+  else if (cos(vectors_angle(v1, v2)) == 1) return "paralelos";
   else return "coincidentes";
 }
 

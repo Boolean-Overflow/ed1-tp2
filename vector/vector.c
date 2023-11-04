@@ -4,14 +4,14 @@
 #include<math.h>
 #include "vector.h"
 
-struct vector {
+struct point {
   position x;
   position y;
   position z;
 };
 
-struct point {
-  position x;
-  position y;
-  position z;
+struct vector {
+  point start;
+  point end;
+  point coods;
 };

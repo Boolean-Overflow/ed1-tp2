@@ -3,7 +3,7 @@ typedef struct point point;
 typedef float position;
 
 // Matateu
-vector* create_vector(position x, position y, position z);
+vector* vector_create(point start, point end);
 vector* sum_vectors(vector* v1, vector* v2);
 vector* vectorial_product(vector* v1, vector* v2);
 float vectors_angle(vector* v1, vector* v2);
@@ -20,5 +20,4 @@ vector* product_by_scalar(vector* v, float ß);
 float scalar_product(vector* v1, vector* v2);
 float vector_module(vector* v);
 char* relative_position(vector* v1, vector* v2); // Paralell or ortogonal
-void delete_vector(vector* v);
-
+void vector_delete(vector* v);

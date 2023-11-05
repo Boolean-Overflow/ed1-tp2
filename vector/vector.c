@@ -39,15 +39,36 @@ void print_point(point p) {
 
 point read_point() {
   point p;
-  printf("X:"), scanf("%f", &p.x);
-  printf("Y:"), scanf("%f", &p.y);
-  printf("Z:"), scanf("%f", &p.z);
+  int valid = 1;
+  do {
+    fflush(stdin);
+    if (!valid) printf("O vetor não pode ser Nulo\n");
+    printf("X:"), scanf("%f", &p.x);
+    printf("Y:"), scanf("%f", &p.y);
+    printf("Z:"), scanf("%f", &p.z);
+    fflush(stdin);
+
+    valid = !(p.x == p.y && p.y == p.z && !p.x);
+  } while (!valid);
+
+  return p;
+}
+
+point point_cpy(vector* v) {
+  point p;
+  p.x = v->coords.x;
+  p.y = v->coords.y;
+  p.z = v->coords.z;
 
   return p;
 }
 
 void vector_print(vector* v) {
-  printf("%.2fi + %.2fj + %.2fk", v->coords.x, v->coords.y, v->coords.z);
+  float x = v->coords.x, y = v->coords.y, z = v->coords.z;
+  if (x) printf("%.2fi", x);
+  if (y) printf(" %c ", y < 0 ? ' ' : '+'), printf("%.2fj", y);
+  if (z) printf(" %c ", z < 0 ? ' ' : '+'), printf("%.2fk", z);
+
 }
 
 vector* vector_sum(vector* v1, vector* v2) {
@@ -154,14 +175,19 @@ float mix_product(vector* v1, vector* v2, vector* v3) {
 }
 
 point interception(vector* v1, vector* v2) {
-  float incog1 = 0, incog2 = 0;
+
+  float incog1 = 0, incog2 = 0, aux;
   incog1 = ((v2->start.x) - (v1->start.x)) / (v1->coords.x);
-  incog2 = ((v2->start.y) - (v1->start.y) - ((v1->coords.y) * incog1)) / (v1->coords.y - v2->coords.y);
-  incog1 += incog2;
+  aux = (v2->coords.y - (v1->coords.y) * (v2->coords.x));
+  if (aux) {
+    incog2 = (v1->start.y + (v1->coords.y) * (v2->start.x) - (v1->coords.y) * (v1->start.x) - v2->start.y) / aux;
+    incog1 += incog2 / (v1->coords.x);
+  }
   point Point_Interc;
   Point_Interc.x = (v1->start.x + (v1->coords.x) * incog1);
   Point_Interc.y = (v1->start.y + (v1->coords.y) * incog1);
   Point_Interc.z = (v1->start.z + (v1->coords.z) * incog1);
+
   return Point_Interc;
 
 }

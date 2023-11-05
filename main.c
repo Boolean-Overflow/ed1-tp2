@@ -25,8 +25,8 @@ void clearConsole() {
 void validate(int* finish) {
   char ans;
   fflush(stdin);
-  printf("Deseja voltar para o menu?\n[S/N]: ");
-  scanf("%c", &ans), * finish = toupper(ans) == 'N';
+  printf("Deseja voltar para o menu?\n[S para continuar ou qualquer outra letra pra terminar]: ");
+  scanf("%c", &ans), * finish = toupper(ans) != 'S';
   fflush(stdin);
 }
 
@@ -67,14 +67,6 @@ int* header2(char* msg, int n) {
   return index;
 }
 
-point point_cpy(vector* v) {
-  point p;
-  p.x = v->coords.x;
-  p.y = v->coords.y;
-  p.z = v->coords.z;
-
-  return p;
-}
 
 int menu(int n) {
   int option, end = 2;
@@ -152,7 +144,7 @@ int main() {
     char* letters[] = { "𝐴⃗", "𝐵⃗", "𝐶⃗" };
 
     for (int i = 0; i < n; ++i)
-      printf("[%d]: %s", i + 1, letters[i]), print_point(v[i]->coords), printf("\n");
+      printf("[%d]: %s = ", i + 1, letters[i]), vector_print(v[i]), printf("\n");
 
     int option = menu(n);
     if (option == 1) {
@@ -192,7 +184,7 @@ int main() {
 
       print_point(v[index[0]]->coords), printf(" - ");
       print_point(v[index[1]]->coords), printf(" = ");
-      print_point(result->coords);
+      print_point(result->coords), printf("\n");
       vector_delete(result);
     }
     else if (option == 5 && n > 1) {
@@ -221,7 +213,9 @@ int main() {
       index = header2("========== INTERSECÇÃO ==========\n", n);
       point result = interception(v[index[0]], v[index[1]]);
 
-      if (!vectors_angle(v[index[0]], v[index[1]])) printf("Não existe intersecção!\n");
+      float aux = (v[index[1]]->coords.y - (v[index[0]]->coords.y) * (v[index[1]]->coords.x));
+
+      if (!aux) printf("Não existe intersecção!\n");
       else {
         print_point(v[index[0]]->coords), printf(" ∠ ");
         print_point(v[index[1]]->coords), printf(" = ");
@@ -233,7 +227,7 @@ int main() {
 
       print_point(v[index[0]]->coords), printf(" e ");
       print_point(v[index[1]]->coords);
-      printf("são %s \n", relative_position(v[index[0]], v[index[1]]));
+      printf(" são %s \n", relative_position(v[index[0]], v[index[1]]));
     }
     else if (option == 10 && n == 3) {
       printf("========== PRODUTO MISTO ==========\n");

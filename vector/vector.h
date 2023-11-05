@@ -9,6 +9,7 @@ vector* vectorial_product(vector* v1, vector* v2);
 float vectors_angle(vector* v1, vector* v2);
 void vector_print(vector* v); // 2i + 3j + 3z = (2, 3, 3)
 void print_point(point p);
+point point_cpy(vector* v);
 
 // Lukeny
 float distance(vector* v1, vector* v2);

@@ -106,7 +106,7 @@ int menu(int n) {
 int main() {
   setlocale(LC_ALL, "");
   char ans;
-  int n = 0, ok, * index;
+  int n = 0, ok, * index = NULL;
   vector** v = calloc(3, sizeof(vector));
 
   do {
@@ -152,17 +152,14 @@ int main() {
     char* letters[] = { "𝐴⃗", "𝐵⃗", "𝐶⃗" };
 
     for (int i = 0; i < n; ++i)
-      printf("[%d] %s(%.2f, %.2f, %.2f)\n",
-        i + 1, letters[i], v[i]->coords.x, v[i]->coords.y, v[i]->coords.z
-      );
+      printf("[%d]: %s", i + 1, letters[i]), print_point(v[i]->coords), printf("\n");
 
     int option = menu(n);
     if (option == 1) {
       int index = header1("========== MODULO ==========\n", n);
 
-      printf("|(%.2f, %.2f, %.2f)| = %.2f\n",
-        v[index]->coords.x, v[index]->coords.y, v[index]->coords.z, vector_module(v[index])
-      );
+      printf("||"), print_point(v[index]->coords);
+      printf("|| = %.2f\n", vector_module(v[index]));
     }
     else if (option == 2) {
       int index = header1("========== MULTIPLICAÇÃO POR UM ESCALAR ==========\n", n);
@@ -175,90 +172,75 @@ int main() {
         product_by_scalar(v[index], ß);
       } while (ß < 0);
 
-      printf("%.2f(%.2f, %.2f, %.2f) = (%.2f, %.2f, %.2f)\n",
-        ß, p.x, p.y, p.z,
-        v[index]->coords.x, v[index]->coords.y, v[index]->coords.z
-      );
+      printf("%.2f ", ß), print_point(p), printf(" = ");
+      print_point(v[index]->coords), printf("\n");
     }
     else if (option == 3 && n > 1) {
       index = header2("========== SOMAR VETORES ==========\n", n);
 
-      // vector* result = vector_sum(v[index[0]], v[index[1]]);
+      vector* result = vector_sum(v[index[0]], v[index[1]]);
 
-      // printf("(%.2f, %.2f, %.2f) + (%.2f, %.2f, %.2f) = (%.2f, %.2f, %.2f)",
-      //   v[index[0]]->coords.x, v[index[0]]->coords.y, v[index[0]]->coords.z,
-      //   v[index[1]]->coords.x, v[index[1]]->coords.y, v[index[1]]->coords.z,
-      //   result->coords.x, result->coords.y, result->coords.z
-      // );
-
+      print_point(v[index[0]]->coords), printf(" + ");
+      print_point(v[index[1]]->coords), printf(" = ");
+      print_point(result->coords), printf("\n");
+      vector_delete(result);
     }
     else if (option == 4 && n > 1) {
       index = header2("========== SUBTRAIR VETORES ==========\n", n);
 
-      // vector* result = vector_sum(v[index[0]], v[index[1]]);
+      vector* result = subtract_vectors(v[index[0]], v[index[1]]);
 
-      // printf("(%.2f, %.2f, %.2f) - (%.2f, %.2f, %.2f) = (%.2f, %.2f, %.2f)",
-      //   v[index[0]]->coords.x, v[index[0]]->coords.y, v[index[0]]->coords.z,
-      //   v[index[1]]->coords.x, v[index[1]]->coords.y, v[index[1]]->coords.z,
-      //   result->coords.x, result->coords.y, result->coords.z
-      // );
+      print_point(v[index[0]]->coords), printf(" - ");
+      print_point(v[index[1]]->coords), printf(" = ");
+      print_point(result->coords);
+      vector_delete(result);
     }
     else if (option == 5 && n > 1) {
       index = header2("========== PRODUTO ESCALAR ==========\n", n);
       float result = scalar_product(v[index[0]], v[index[1]]);
 
-      printf("(%.2f, %.2f, %.2f).(%.2f, %.2f, %.2f) = %.2f\n",
-        v[index[0]]->coords.x, v[index[0]]->coords.y, v[index[0]]->coords.z,
-        v[index[1]]->coords.x, v[index[1]]->coords.y, v[index[1]]->coords.z,
-        result
-      );
+      print_point(v[index[0]]->coords), printf(".");
+      print_point(v[index[1]]->coords), printf(" = %.2f\n", result);
     }
     else if (option == 6) {
       index = header2("========== PRODUTO VETORIAL ==========\n", n);
-      // vector* result = vectorial_product(v[index[0]], v[index[1]]);
+      vector* result = vectorial_product(v[index[0]], v[index[1]]);
 
-      // printf("(%.2f, %.2f, %.2f) x (%.2f, %.2f, %.2f) = (%.2f, %.2f, %.2f)",
-      //   v[index[0]]->coords.x, v[index[0]]->coords.y, v[index[0]]->coords.z,
-      //   v[index[1]]->coords.x, v[index[1]]->coords.y, v[index[1]]->coords.z,
-      //   result->coords.x, result->coords.y, result->coords.z
-      // );
+      print_point(v[index[0]]->coords), printf(" X ");
+      print_point(v[index[1]]->coords), printf(" = ");
+      print_point(result->coords), printf("\n");
     }
     else if (option == 7 && n > 1) {
       index = header2("========== ÂNGULO ENTRE VETORES ==========\n", n);
-      // float result = vectors_angle(v[index[0]], v[index[1]]);
+      float result = vectors_angle(v[index[0]], v[index[1]]);
 
-      // printf("(%.2f, %.2f, %.2f).(%.2f, %.2f, %.2f) = %.2f",
-      //   v[index[0]]->coords.x, v[index[0]]->coords.y, v[index[0]]->coords.z,
-      //   v[index[1]]->coords.x, v[index[1]]->coords.y, v[index[1]]->coords.z,
-      //   result
-      // );
+      print_point(v[index[0]]->coords), printf("∠");
+      print_point(v[index[1]]->coords), printf(" = %.2f°\n", result);
     }
     else if (option == 8 && n > 1) {
       index = header2("========== INTERSECÇÃO ==========\n", n);
-      // point result = vectorial_product(v[index[0]], v[index[1]]);
+      point result = interception(v[index[0]], v[index[1]]);
 
-      // printf("(%.2f, %.2f, %.2f) x (%.2f, %.2f, %.2f) = (%.2f, %.2f, %.2f)",
-      //   v[index[0]]->coords.x, v[index[0]]->coords.y, v[index[0]]->coords.z,
-      //   v[index[1]]->coords.x, v[index[1]]->coords.y, v[index[1]]->coords.z,
-      //   result->coords.x, result->coords.y, result->coords.z
-      // );
+      if (!vectors_angle(v[index[0]], v[index[1]])) printf("Não existe intersecção!\n");
+      else {
+        print_point(v[index[0]]->coords), printf(" ∠ ");
+        print_point(v[index[1]]->coords), printf(" = ");
+        print_point(result), printf("\n");
+      }
     }
     else if (option == 9 && n > 1) {
       index = header2("========== POSIÇÃO RELATIVA ==========\n", n);
 
-      // printf("(%.2f, %.2f, %.2f) e (%.2f, %.2f, %.2f) são %s",
-      //   relative_position(v[index[0]], v[index[1]])
-      // );
+      print_point(v[index[0]]->coords), printf(" e ");
+      print_point(v[index[1]]->coords);
+      printf("são %s \n", relative_position(v[index[0]], v[index[1]]));
     }
     else if (option == 10 && n == 3) {
       printf("========== PRODUTO MISTO ==========\n");
-      // float result = mix_product(v[0], v[1], v[2]);
-      // printf("(%.2f, %.2f, %.2f).[(%.2f, %.2f, %.2f)X(%.2f, %.2f, %.2f)] = %.2f",
-      //   v[2]->coords.x, v[2]->coords.y, v[2]->coords.z,
-      //   v[0]->coords.x, v[0]->coords.y, v[0]->coords.z,
-      //   v[1]->coords.x, v[1]->coords.y, v[1]->coords.z,
-      //   result
-      // );
+      float result = mix_product(v[0], v[1], v[2]);
+      print_point(v[2]->coords), printf(".[");
+      print_point(v[0]->coords), printf(" X ");
+      print_point(v[1]->coords), printf("] = %.2f\n", result);
     }
     else if (option == 0) break;
     else ok = 0;

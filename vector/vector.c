@@ -14,7 +14,10 @@ struct vector {
 
 vector* vector_create_by_points(point start, point end) {
   vector* v = malloc(sizeof(vector));
-  if (!v) {}
+  if (!v) {
+    printf("Erro de alocação\n");
+    return NULL;
+  }
   v->coords.x = end.x - start.x;
   v->coords.y = end.y - start.y;
   v->coords.z = end.z - start.z;

@@ -48,6 +48,7 @@ vector* product_by_scalar(vector* v, float ß) {
     printf("\n O escalar deve ser diferente de zero\n");
     return NULL;
   }
+
   v->coords.x *= ß;
   v->coords.y *= ß;
   v->coords.z *= ß;

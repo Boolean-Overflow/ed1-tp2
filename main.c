@@ -149,14 +149,18 @@ int main() {
   do {
     ok = 1;
     if (!ok) printf("Opção Inválida\n");
+    char* letters[] = { "𝐴⃗", "𝐵⃗", "𝐶⃗" };
+
     for (int i = 0; i < n; ++i)
-      printf("Vector %d (%.0f, %.0f, %.0f)\n", i + 1, v[i]->coords.x, v[i]->coords.y, v[i]->coords.z);
+      printf("[%d] %s(%.2f, %.2f, %.2f)\n",
+        i + 1, letters[i], v[i]->coords.x, v[i]->coords.y, v[i]->coords.z
+      );
 
     int option = menu(n);
     if (option == 1) {
       int index = header1("========== MODULO ==========\n", n);
 
-      printf("|(%.0f, %.0f, %.0f)| = %.2f\n",
+      printf("|(%.2f, %.2f, %.2f)| = %.2f\n",
         v[index]->coords.x, v[index]->coords.y, v[index]->coords.z, vector_module(v[index])
       );
     }
@@ -171,7 +175,7 @@ int main() {
         product_by_scalar(v[index], ß);
       } while (ß < 0);
 
-      printf("%.2f(%.0f, %.0f, %.0f) = (%.2f, %.2f, %.2f)\n",
+      printf("%.2f(%.2f, %.2f, %.2f) = (%.2f, %.2f, %.2f)\n",
         ß, p.x, p.y, p.z,
         v[index]->coords.x, v[index]->coords.y, v[index]->coords.z
       );
@@ -181,7 +185,7 @@ int main() {
 
       // vector* result = vector_sum(v[index[0]], v[index[1]]);
 
-      // printf("(%.0f, %.0f, %.0f) + (%.0f, %.0f, %.0f) = (%.0f, %.0f, %.0f)",
+      // printf("(%.2f, %.2f, %.2f) + (%.2f, %.2f, %.2f) = (%.2f, %.2f, %.2f)",
       //   v[index[0]]->coords.x, v[index[0]]->coords.y, v[index[0]]->coords.z,
       //   v[index[1]]->coords.x, v[index[1]]->coords.y, v[index[1]]->coords.z,
       //   result->coords.x, result->coords.y, result->coords.z
@@ -193,7 +197,7 @@ int main() {
 
       // vector* result = vector_sum(v[index[0]], v[index[1]]);
 
-      // printf("(%.0f, %.0f, %.0f) - (%.0f, %.0f, %.0f) = (%.0f, %.0f, %.0f)",
+      // printf("(%.2f, %.2f, %.2f) - (%.2f, %.2f, %.2f) = (%.2f, %.2f, %.2f)",
       //   v[index[0]]->coords.x, v[index[0]]->coords.y, v[index[0]]->coords.z,
       //   v[index[1]]->coords.x, v[index[1]]->coords.y, v[index[1]]->coords.z,
       //   result->coords.x, result->coords.y, result->coords.z
@@ -203,7 +207,7 @@ int main() {
       index = header2("========== PRODUTO ESCALAR ==========\n", n);
       float result = scalar_product(v[index[0]], v[index[1]]);
 
-      printf("(%.0f, %.0f, %.0f).(%.0f, %.0f, %.0f) = %.2f\n",
+      printf("(%.2f, %.2f, %.2f).(%.2f, %.2f, %.2f) = %.2f\n",
         v[index[0]]->coords.x, v[index[0]]->coords.y, v[index[0]]->coords.z,
         v[index[1]]->coords.x, v[index[1]]->coords.y, v[index[1]]->coords.z,
         result
@@ -213,7 +217,7 @@ int main() {
       index = header2("========== PRODUTO VETORIAL ==========\n", n);
       // vector* result = vectorial_product(v[index[0]], v[index[1]]);
 
-      // printf("(%.0f, %.0f, %.0f) x (%.0f, %.0f, %.0f) = (%.0f, %.0f, %.0f)",
+      // printf("(%.2f, %.2f, %.2f) x (%.2f, %.2f, %.2f) = (%.2f, %.2f, %.2f)",
       //   v[index[0]]->coords.x, v[index[0]]->coords.y, v[index[0]]->coords.z,
       //   v[index[1]]->coords.x, v[index[1]]->coords.y, v[index[1]]->coords.z,
       //   result->coords.x, result->coords.y, result->coords.z
@@ -223,7 +227,7 @@ int main() {
       index = header2("========== ÂNGULO ENTRE VETORES ==========\n", n);
       // float result = vectors_angle(v[index[0]], v[index[1]]);
 
-      // printf("(%.0f, %.0f, %.0f).(%.0f, %.0f, %.0f) = %.2f",
+      // printf("(%.2f, %.2f, %.2f).(%.2f, %.2f, %.2f) = %.2f",
       //   v[index[0]]->coords.x, v[index[0]]->coords.y, v[index[0]]->coords.z,
       //   v[index[1]]->coords.x, v[index[1]]->coords.y, v[index[1]]->coords.z,
       //   result
@@ -233,7 +237,7 @@ int main() {
       index = header2("========== INTERSECÇÃO ==========\n", n);
       // point result = vectorial_product(v[index[0]], v[index[1]]);
 
-      // printf("(%.0f, %.0f, %.0f) x (%.0f, %.0f, %.0f) = (%.0f, %.0f, %.0f)",
+      // printf("(%.2f, %.2f, %.2f) x (%.2f, %.2f, %.2f) = (%.2f, %.2f, %.2f)",
       //   v[index[0]]->coords.x, v[index[0]]->coords.y, v[index[0]]->coords.z,
       //   v[index[1]]->coords.x, v[index[1]]->coords.y, v[index[1]]->coords.z,
       //   result->coords.x, result->coords.y, result->coords.z
@@ -242,14 +246,14 @@ int main() {
     else if (option == 9 && n > 1) {
       index = header2("========== POSIÇÃO RELATIVA ==========\n", n);
 
-      // printf("(%.0f, %.0f, %.0f) e (%.0f, %.0f, %.0f) são %s",
+      // printf("(%.2f, %.2f, %.2f) e (%.2f, %.2f, %.2f) são %s",
       //   relative_position(v[index[0]], v[index[1]])
       // );
     }
     else if (option == 10 && n == 3) {
       printf("========== PRODUTO MISTO ==========\n");
       // float result = mix_product(v[0], v[1], v[2]);
-      // printf("(%.0f, %.0f, %.0f).[(%.0f, %.0f, %.0f)X(%.0f, %.0f, %.0f)] = %.2f",
+      // printf("(%.2f, %.2f, %.2f).[(%.2f, %.2f, %.2f)X(%.2f, %.2f, %.2f)] = %.2f",
       //   v[2]->coords.x, v[2]->coords.y, v[2]->coords.z,
       //   v[0]->coords.x, v[0]->coords.y, v[0]->coords.z,
       //   v[1]->coords.x, v[1]->coords.y, v[1]->coords.z,

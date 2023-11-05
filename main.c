@@ -93,7 +93,7 @@ int menu(int n) {
     end = 9;
   }
 
-  if (n == 3) printf("10- Produto misto entre vetores\n"), end = 9;
+  if (n == 3) printf("10- Produto misto entre vetores\n"), end = 10;
 
   // printf("0- Sair\n");
 

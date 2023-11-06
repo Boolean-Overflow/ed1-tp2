@@ -5,6 +5,11 @@
 #include "vector/vector.h"
 #include "utils/utils.h"
 
+/**
+ * Em ambiente UNIX importar o vector.c não permitia compilar
+ * e dava erro. Redeclarar as structs aqui foi a única solução
+ * que encontramos!
+*/
 typedef struct point {
   position x, y, z;
 } point;
@@ -12,6 +17,7 @@ typedef struct point {
 typedef struct vector {
   point start, end, coords;
 } vector;
+
 
 int main() {
   setlocale(LC_ALL, "");
@@ -65,13 +71,13 @@ int main() {
 
     int option = menu(n);
     if (option == 1) {
-      int index = header1("========== MODULO ==========\n", n);
+      int index = header1("==================== MODULO ====================\n", n);
 
       printf("||"), print_point(v[index]->coords);
       printf("|| = %.2f\n", vector_module(v[index]));
     }
     else if (option == 2) {
-      int index = header1("========== MULTIPLICAÇÃO POR UM ESCALAR ==========\n", n);
+      int index = header1("=========== MULTIPLICAÇÃO POR UM ESCALAR =======\n", n);
       float ß;
       point p = point_cpy(v[index]);
       do {
@@ -86,7 +92,7 @@ int main() {
       print_point(v[index]->coords), printf("\n");
     }
     else if (option == 3 && n > 1) {
-      index = header2("========== SOMAR VETORES ==========\n", n);
+      index = header2("=================== SOMAR VETORES ===================\n", n);
 
       vector* result = vector_sum(v[index[0]], v[index[1]]);
 
@@ -96,7 +102,7 @@ int main() {
       vector_delete(result);
     }
     else if (option == 4 && n > 1) {
-      index = header2("========== SUBTRAIR VETORES ==========\n", n);
+      index = header2("==================== SUBTRAIR VETORES ====================\n", n);
 
       vector* result = subtract_vectors(v[index[0]], v[index[1]]);
 
@@ -106,14 +112,14 @@ int main() {
       vector_delete(result);
     }
     else if (option == 5 && n > 1) {
-      index = header2("========== PRODUTO ESCALAR ==========\n", n);
+      index = header2("==================== PRODUTO ESCALAR ====================\n", n);
       float result = scalar_product(v[index[0]], v[index[1]]);
 
       print_point(v[index[0]]->coords), printf(".");
       print_point(v[index[1]]->coords), printf(" = %.2f\n", result);
     }
     else if (option == 6) {
-      index = header2("========== PRODUTO VETORIAL ==========\n", n);
+      index = header2("==================== PRODUTO VETORIAL ====================\n", n);
       vector* result = vectorial_product(v[index[0]], v[index[1]]);
 
       print_point(v[index[0]]->coords), printf(" X ");
@@ -121,14 +127,14 @@ int main() {
       print_point(result->coords), printf("\n");
     }
     else if (option == 7 && n > 1) {
-      index = header2("========== ÂNGULO ENTRE VETORES ==========\n", n);
+      index = header2("================== ÂNGULO ENTRE VETORES ==================\n", n);
       float result = vectors_angle(v[index[0]], v[index[1]]);
 
       print_point(v[index[0]]->coords), printf("∠");
       print_point(v[index[1]]->coords), printf(" = %.2f°\n", result);
     }
     else if (option == 8 && n > 1) {
-      index = header2("========== INTERSECÇÃO ==========\n", n);
+      index = header2("==================== INTERSECÇÃO ====================\n", n);
       point result = interception(v[index[0]], v[index[1]]);
 
       float aux = (v[index[1]]->coords.y - (v[index[0]]->coords.y) * (v[index[1]]->coords.x));
@@ -141,14 +147,14 @@ int main() {
       }
     }
     else if (option == 9 && n > 1) {
-      index = header2("========== POSIÇÃO RELATIVA ==========\n", n);
+      index = header2("==================== POSIÇÃO RELATIVA ====================\n", n);
 
       print_point(v[index[0]]->coords), printf(" e ");
       print_point(v[index[1]]->coords);
       printf(" são %s \n", relative_position(v[index[0]], v[index[1]]));
     }
     else if (option == 10 && n == 3) {
-      printf("========== PRODUTO MISTO ==========\n");
+      printf("==================== PRODUTO MISTO ====================\n");
       float result = mix_product(v[0], v[1], v[2]);
       print_point(v[2]->coords), printf(".[");
       print_point(v[0]->coords), printf(" X ");

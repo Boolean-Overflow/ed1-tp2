@@ -65,10 +65,33 @@ point point_cpy(vector* v) {
 
 void vector_print(vector* v) {
   float x = v->coords.x, y = v->coords.y, z = v->coords.z;
-  if (x) printf("%.2fi", x);
-  if (y) printf(" %c ", y < 0 ? ' ' : '+'), printf("%.2fj", y);
-  if (z) printf(" %c ", z < 0 ? ' ' : '+'), printf("%.2fk", z);
 
+  if (x) {
+    if (fabsf(x) != 1) printf("%.2f", fabsf(x));
+    printf("%si", x < 0 ? "-" : "");
+  }
+  if (y) {
+    if (x) printf("%s", y > 0 ? " + " : " - ");
+    else if (y < 0) printf("-");
+    if (fabsf(y) != 1) printf("%.2f", fabsf(y));
+    printf("j");
+  }
+  if (z) {
+    if (y || x) printf("%s", z > 0 ? " + " : " - ");
+    else if (z < 0) printf("-");
+    if (fabsf(z) != 1) printf("%.2f", fabsf(z));
+    printf("k");
+  }
+}
+
+void print_vectors(vector** v, int n) {
+  printf("========== VETORES INFORMADOS ==============\n");
+  char* letters[] = { "𝐴⃗", "𝐵⃗", "𝐶⃗" };
+
+  for (int i = 0; i < n; ++i)
+    printf("[%d]: %s = ", i + 1, letters[i]), vector_print(v[i]), printf("\n");
+
+  printf("============================================\n");
 }
 
 vector* vector_sum(vector* v1, vector* v2) {
@@ -114,15 +137,6 @@ vector* vectorial_product(vector* v1, vector* v2) {
 }
 
 vector* product_by_scalar(vector* v, float ß) {
-  if (!v) {
-    printf("\nVetor deve possuir coordenadas.\n");
-    return NULL;
-  }
-  if (!ß) {
-    printf("\n O escalar deve ser diferente de zero\n");
-    return NULL;
-  }
-
   v->coords.x *= ß;
   v->coords.y *= ß;
   v->coords.z *= ß;

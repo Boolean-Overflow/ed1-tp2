@@ -28,7 +28,6 @@ int main() {
   do {
     ok = 1;
     do {
-      if (n) print_vectors(v, n);
       if (!ok) printf("Opção Inválida!\n");
       printf("Sobre o vetor %d\n", n + 1);
       printf("Quer informar por pontos ou coordenadas?\n[P/C]:");
@@ -54,6 +53,7 @@ int main() {
 
     if (n < 3) {
       fflush(stdin);
+      if (n) print_vectors(v, n);
       printf("Deseja inserir outro Vector?\n[S/N]:");
       scanf("%c", &ans), ok = toupper(ans) != 'S';
       fflush(stdin);
@@ -154,16 +154,17 @@ int main() {
       printf(" são %s \n", relative_position(v[index[0]], v[index[1]]));
     }
     else if (option == 10 && n == 3) {
+      clearConsole();
       printf("==================== PRODUTO MISTO ====================\n");
       float result = mix_product(v[0], v[1], v[2]);
       print_point(v[2]->coords), printf(".[");
       print_point(v[0]->coords), printf(" X ");
       print_point(v[1]->coords), printf("] = %.2f\n", result);
+      if (!result) printf("Estes vetores pelos vistos são coplanares!\n");
     }
     else if (n == 1 && option == 3 || n == 2 && option == 10 || n == 3 && option == 11) break;
     else {
-      ok = 0, clearConsole();
-      printf("Opção Inválida!\n");
+      ok = 0, clearConsole(), printf("Opção Inválida!\n");
       continue;
     }
     validate(&finish), clearConsole();
@@ -173,5 +174,6 @@ int main() {
   while (n > 0) vector_delete(v[--n]);
   free(index), free(v);
 
+  printf("Obrigado! ;)\n");
   return 0;
 }

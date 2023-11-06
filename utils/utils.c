@@ -48,7 +48,7 @@ int* header2(char* msg, int n) {
         if (index[i] >= n || index[i] < 0) printf("Indice Inválido!\n");
         if (!valid) printf("Este indice já foi escolhido\n");
         printf("%s", msg);
-        printf("Informe o indice o %d vetor: ", i + 1);
+        printf("Informe o indice o %d vetor\n[1-%d]:", i + 1, n);
         scanf("%d", &index[i]), --index[i];
         fflush(stdin);
 
